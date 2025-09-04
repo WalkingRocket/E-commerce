@@ -1,0 +1,122 @@
+@let nameControl = registerForm.get('name'); @let emailControl = registerForm.get('email'); @let passwordControl = registerForm.get('password'); @let rePasswordControl =
+registerForm.get('rePassword'); @let phoneControl = registerForm.get('phone');
+
+<section class="bg-gray-100 border border-gray-200 p-4 shadow-md mx-auto md:w-1/2 my-14 rounded-lg">
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div class="relative mb-4">
+      <input formControlName="name" type="text" id="name" class="main-input peer" placeholder=" " />
+      <label for="name" class="main-label">Name</label>
+    </div>
+    @if(nameControl?.errors && nameControl?.touched) {
+    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <span class="sr-only">Danger</span>
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (nameControl?.getError('maxlength')) {
+          <li>Name should be less than 20 characters</li>
+          } @if (nameControl?.getError('minlength')) {
+          <li>Name should be more than 3 characters</li>
+          } @if (nameControl?.getError('required')) {
+          <li>Name is Empty</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <div class="relative mb-4">
+      <input formControlName="email" type="email" id="email" class="main-input peer" placeholder=" " />
+      <label for="email" class="main-label">Email</label>
+    </div>
+    @if(emailControl?.errors && emailControl?.touched) {
+    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <span class="sr-only">Danger</span>
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (emailControl?.getError('required')) {
+          <li>Name is Empty</li>
+          } @if( emailControl?.getError('email')) {
+          <li>Email is not valid</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <div class="relative mb-4">
+      <input formControlName="password" type="password" id="password" class="main-input peer" placeholder=" " />
+      <label for="password" class="main-label">password</label>
+    </div>
+    @if(passwordControl?.errors && passwordControl?.touched) {
+    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <span class="sr-only">Danger</span>
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (passwordControl?.getError('required')) {
+          <li>Password is Empty</li>
+          } @if( passwordControl?.getError('minlength')) {
+          <li>Password should be at least 10 letters long</li>
+          } @if (passwordControl?.getError('maxlength')) {
+          <li>Password should be at most 50 letters long</li>
+          } @if (passwordControl?.getError('pattern')) {
+          <li>Password should contain at least one letter and one number</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <div class="relative mb-4">
+      <input formControlName="rePassword" type="password" id="rePassword" class="main-input peer" placeholder=" " />
+      <label for="rePassword" class="main-label">rePassword</label>
+    </div>
+    @if(registerForm.getError('notSame') && rePasswordControl?.touched) {
+    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <span class="sr-only">Danger</span>
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          <li>password don't match</li>
+        </ul>
+      </div>
+    </div>
+    }
+
+    <div class="relative mb-4">
+      <input formControlName="phone" type="tel" id="phone" class="main-input peer" placeholder=" " />
+      <label for="phone" class="main-label">Phone</label>
+    </div>
+    @if(phoneControl?.errors && phoneControl?.touched) {
+    <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+      <span class="sr-only">Danger</span>
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (phoneControl?.getError('required')) {
+          <li>Password is Empty</li>
+          } @if (phoneControl?.getError('pattern')) {
+          <li>Phone is not valid</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+<button class="btn" type="submit" [disabled]="isLoading">
+  @if (isLoading) {
+    <span><i class="fas fa-spinner animate-spin"></i> Loading...</span>
+  }
+  @else {
+    <span>Register</span>
+  }
+</button>
+
+
+<p class="text-red-500">DEBUG: isLoading = {{ isLoading }}</p>
+
+
+    @if(msgError) {
+      <p class="text-center text-red-900 mt-4 p-4 bg-red-200">{{ msgError }}</p>
+    }
+  </form>
+</section>
