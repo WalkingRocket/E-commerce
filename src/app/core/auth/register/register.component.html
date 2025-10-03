@@ -1,0 +1,36 @@
+<section class="bg-gray-100 border border-gray-200 p-4 shadow-md mx-auto md:w-1/2 my-14 rounded-lg">
+  <h1 class="text-center mb-3 font-light text-3xl">Register Now</h1>
+
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <app-input [control]="registerForm.get('name')" [typeInput]="'text'" [idInput]="'name'"
+      [labelInput]="'name'"></app-input>
+
+    <app-input [control]="registerForm.get('email')" [typeInput]="'email'" [idInput]="'email'"
+      [labelInput]="'Email'"></app-input>
+
+    <app-input [control]="registerForm.get('password')" [idInput]="'password'"
+      [labelInput]="'Password'">
+      Password must be at least 6 characters, contain at least one uppercase letter, one lowercase letter, one number and
+      one special character.
+    </app-input>
+
+    <app-input [control]="registerForm.get('rePassword')" [idInput]="'rePassword'"
+      [labelInput]="'Confirm Password'"></app-input>
+
+    <app-input [control]="registerForm.get('phone')" [typeInput]="'tel'" [idInput]="'phone'"
+      [labelInput]="'Phone'">
+      Phone number must be 11 digits starting with 010, 011, 012, 015.
+    </app-input>
+
+    <button class="btn flex items-center justify-center gap-2" type="submit">
+      @if (isLoading){
+      <i class="fas fa-spinner animate-spin"></i>
+      }
+      <span>{{ isLoading ? 'Loading...' : 'Register' }}</span>
+    </button>
+
+    @if(msgError) {
+    <p class="text-center text-red-900 mt-4 p-4 bg-red-200">{{ msgError }}</p>
+    }
+  </form>
+</section>

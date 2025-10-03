@@ -1,0 +1,49 @@
+<section class="bg-gray-200">
+    <div class="container grid items-start sm:grid-cols-12 gap-6">
+        <div class="col-span-8 p-6 rounded-lg shadow-md">
+            <div class="flex items-center">
+                <h1 class="text-3xl">Shopping Cart</h1>
+                @if (cartDetails.products) {
+                <span class="text-white mt-12 rounded-4xl bg-orange-800 px-2">{{cartDetails.products.length}}
+                    items</span>
+                }
+            </div>
+
+            @for (item of cartDetails.products; track item._id) {
+            <div class="bg-white rounded shadow my-6 p-2 grid sm:grid-cols-12">
+                <div class="col-span-2">
+                    <img class="w-full" [src]="item.product.imageCover" [alt]="item.product.title" />
+                </div>
+
+                <div class="col-span-10 flex items-center justify-between ml-3">
+                    <div>
+                        <h3 class="text-2xl ml-1 mb-3 font-bold">{{item.product.title}}</h3>
+                        <div class="flex align-center space-x-6">
+                            <div class="bg-gray-200 border rounded-2xl flex items-center space-x-10 py-1 px-2">
+                                <button (click)="updateProductCount(item.product._id, item.count -1)" class="cursor-pointer"><i class="fas fa-minus"></i></button>
+                                <span>{{item.count}}</span>
+                                <button (click)="updateProductCount(item.product._id, item.count + 1)" class="cursor-pointer"><i class="fas fa-plus"></i></button>
+                            </div>
+                            <button (click)="removeProductFromCart(item.product._id)" class="cursor-pointer"><i
+                                    class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <span class="font-bold">{{item.price * item.count}}EGP</span>
+                </div>
+            </div>
+            }
+        </div>
+
+
+        <div class="col-span-4 bg-white p-6 rounded-lg shadow-md ">
+            <h2 class="text-2xl">Order Summary</h2>
+
+            <div class="flex justify-between items-center mt-6">
+                <h3>Price</h3>
+                <h4>{{cartDetails.totalCartPrice}}</h4>
+            </div>
+
+            <button class="btn" [routerLink]="['/checkout', cartDetails._id]"  >Procceed to checkout</button>
+        </div>
+    </div>
+</section>

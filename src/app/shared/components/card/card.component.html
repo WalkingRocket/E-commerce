@@ -1,0 +1,25 @@
+<div
+  class="card overflow-hidden bg-white border border-gray-400 shadow-lg p-2 group/card"
+>
+  <div class="div">
+    <img
+      [routerLink]="['/details', product.slug ,product.id]"
+      [src]="product.imageCover"
+      class="w-full rounded-t h-[250px] object-contain"
+      [alt]="product.title"
+    />
+    <h3 class="text-sm text-green-700">
+      category: {{ product.category.name }}
+    </h3>
+    <h4 class="text-lg py-2 line-clamp-1">Name: {{ product.title | term : 2}}</h4>
+    <div class="flex justify-between align-center">
+      <span>Price: {{ product.price }}</span>
+      <span>
+        <i class="fas fa-star text-yellow-500"></i> {{ product.ratingsAverage }}
+      </span>
+    </div>
+  </div>
+  <button class="btn translate-y-[130%] group-hover/card:translate-y-0" (click)="addProductItemToCart(product.id)"> 
+    Add to Cart
+  </button>
+</div>

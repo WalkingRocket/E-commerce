@@ -1,0 +1,48 @@
+@let emailControl = loginForm.get('email'); @let passwordControl = loginForm.get('password');
+
+
+<section class="bg-gray-100 border border-gray-200 p-4 shadow-md mx-auto md:w-1/2 my-14 rounded-lg">
+    <h1 class="text-center mb-3 font-light text-3xl">Login Now</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+        <app-input [labelInput]="'Email'" [idInput]="'email'" [typeInput]="'email'"
+            [control]="emailControl"></app-input>
+
+
+        <app-input [labelInput]="'Password'" [idInput]="'password'" [control]="passwordControl">
+            Password must be at least 6 characters, contain at least one uppercase letter, one lowercase letter, one
+            number and
+            one special character.
+        </app-input>
+
+
+        <div class="flex items-center space-x-14">
+            <a routerLink="/resetPassword" class="text-sky-600 cursor-pointer">ForgetPassword?</a>
+
+            <button class="btn mt-4 item-center justify-center gap-2" type="submit">
+                Login
+                @if (isLoading) {
+                <i class="fas fa-spinner animate-spin"></i>
+                }
+            </button>
+        </div>
+
+
+
+        @if (msgError != '') {
+        <div class="flex items-center p-4 mb-4 text-lg text-red-800 border border-red-300 rounded-lg bg-red-50"
+            role="alert">
+            <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="justify-center align-center">
+                <span class="font-medium text-center"> {{msgError}} </span>
+            </div>
+        </div>
+        }
+    </form>
+
+
+</section>
